@@ -6,13 +6,14 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
     rpc_paths = ('/RPC2',)
 
 # Create server
-with SimpleXMLRPCServer(("localhost", 8000),
+with SimpleXMLRPCServer(("192.168.1.8", 8000),
                         requestHandler=RequestHandler) as server:
     server.register_introspection_functions()
 
     # Register pow() function; this will use the value of
     # pow.__name__ as the name, which is just 'pow'.
     server.register_function(pow)
+    server.register_function(sum)
 
     # Register a function under a different name
     def adder_function(x,y):
