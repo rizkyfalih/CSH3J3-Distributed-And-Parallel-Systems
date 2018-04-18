@@ -3,15 +3,19 @@ import pandas as pd
 from io import StringIO
 import io
 
-server = xmlrpc.client.ServerProxy('http://192.168.1.5:8000', allow_none=True)
+server = xmlrpc.client.ServerProxy('http://10.20.32.69:8000', allow_none=True)
 
 # Load data
-dataTrain = pd.read_csv('data_train_PNN.txt', delimiter = "\t").round(9)
-dataTrain = StringIO(dataTrain)
+X_train = []
+X_train.append(['Chinese', 'Beijing', 'Chinese']) 
+X_train.append(['Chinese', 'Chinese', 'Shanghai'])
+X_train.append(['Chinese', 'Macao'])
+X_train.append(['Tokyo', 'Japan', 'Chinese'])
 
-print(dataTrain)
-# z1 = dataTrain.loc[1, 'att1':'att3']
-# z2 = dataTrain.loc[:, 'att1':'label']
+y_train = ['c','c','c','j']
 
-# sigmas = {0:1, 1:1, 2:1}
-# z3 = server.patternLayer(z1, z2, sigmas)
+label_list = list(set(y_train))
+
+prior = server.prior(y_train, label_list)
+
+print(prior)

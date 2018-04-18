@@ -14,7 +14,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
     rpc_paths = ('/RPC2',)
 
 # Create server
-with SimpleXMLRPCServer(("192.168.1.5", 8000),
+with SimpleXMLRPCServer(("10.20.32.69", 8000),
                         requestHandler=RequestHandler) as server:
     server.register_introspection_functions()
 
@@ -34,6 +34,19 @@ with SimpleXMLRPCServer(("192.168.1.5", 8000),
         return dataTrain
 
     server.register_function(patternL, 'patternLayer')
+
+    def prior_probability(y, y_list):
+        p = [0] * len(y_list)
+        for i in range(len(y_list)):
+            for j in range(len(y)):
+                if y_list[i] == y[j]:
+                    p[i] +=1
+        total_p =sum(p)
+        for i in range(len(p)):
+            p[i]/=total_p
+        return p
+
+    server.register_function(prior_probability, 'prior')
 
     # Run the server's main loop
     server.serve_forever()
