@@ -29,7 +29,7 @@ received_packages = re.compile(r"Received = (\d)")
 start = time.time()
 check_results = []
 for suffix in range(1,10):
-    ip = "192.168.1."+str(suffix)
+    ip = "XXX.XXX.X."+str(suffix) # Change XXX.XXX.X your ip address
     current = ip_check(ip)
     check_results.append(current)
     current.start()

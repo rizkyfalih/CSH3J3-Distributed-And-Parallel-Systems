@@ -6,7 +6,7 @@ received_packages = re.compile(r"Received = (\d)")
 status = ("no response","alive but losses","alive")
 
 for suffix in range(1,3):
-    ip = "192.168.1."+str(suffix)
+    ip = "XXX.XXX.X."+str(suffix) # Change XXX.XXX.X your ip address
     ping_out = os.popen("ping -n 2 "+ip,"r")
     print(("... pinging ",ip))
 
